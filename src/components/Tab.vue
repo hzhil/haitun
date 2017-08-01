@@ -4,7 +4,7 @@
 		<div v-bind:class="ny" class="tab">
 			<img src="static/index-button.png" v-on:click='navc'>
 		    <div class="nav" v-show='isShow'>
-		        <router-link to="/"><img v-for="s in srcs" v-bind:src="s.sr" ></router-link>
+		        <router-link :to='s.link' v-for="s in srcs"><img v-bind:src="s.sr" ></router-link>
 			</div>
 		</div>
 	</div>
@@ -18,10 +18,10 @@
 	      ny:'',
 	      isShow:true,
 	      srcs:[
-	      	{sr:'../static/button-category.png'},
-	      	{sr:'../static/button-index.png'},
-	      	{sr:'../static/button-cart.png'},
-	      	{sr:'../static/button-user.png'}
+	      	{sr:'static/button-index.png',link:'/'},
+	      	{sr:'static/button-category.png',link:'/search'},
+	      	{sr:'static/button-cart.png',link:'/buy'},
+	      	{sr:'static/button-user.png',link:'/load'}
 	      ]
 	    }
 	  },
@@ -36,11 +36,6 @@
 </script>
 
 <style>
-	/*#tab{
-	  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-	  color: #2c3e50;
-	  border: 1px solid red;
-		}*/
 	.tab{
 		border: 1px solid black;
 		position: fixed;
@@ -49,6 +44,8 @@
 		border-radius: 25px;
 		bottom: 10px;
 		left: 30px;
+		background-color: white;
+		z-index: 10000;
 	}
 	.duan{
 		transition: all 0.6s;

@@ -7,10 +7,12 @@
     <tui></tui>
     <wonder></wonder>
     <hglobal></hglobal>
+    <!--<tab></tab>-->
   </div>
 </template>
 
 <script>
+//	import Tab from '@/components/Tab'
 	import Htop from '@/components/home/htop'
 	import Hplay from '@/components/home/Hplay'
 	import List from '@/components/home/List'
@@ -20,7 +22,7 @@
 	import Hglobal from '@/components/home/Hglobal'
 	
 	export default {
-	name: 'name',
+		name: 'name',
 		components:{Htop,Hplay,List,Img1,Tui,Wonder,Hglobal}
 	
 	}

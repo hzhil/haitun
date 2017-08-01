@@ -1,14 +1,22 @@
 <template>
 	<div class="hTop">
-    	<img src="static/data-image-png;base….png"/>
+    	<img src="static/data-image-png;base….png" @click="user"/>
     	<img src="static/logo_index.png" class="img2"/>
-    	<img src="static/data-image-png;base… (1).png"/>
+    	<img src="static/data-image-png;base… (1).png" @click="sea"/>
     </div>
 </template>
 
 <script>
 	export default {
 		name: 'htop',
+		methods:{
+			sea(){
+				this.$router.push("/seeks")
+			},
+			user(){
+				this.$router.push("/load")
+			}
+		}
 	}
 </script>
 <style>

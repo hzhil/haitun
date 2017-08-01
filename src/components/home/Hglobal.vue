@@ -3,8 +3,8 @@
 		<p>全球精选</p>
 		<div class="lie">
 			<!--<lies v-for="obj in arr"></lies>-->
-			<dl v-for="obj in arr">
-				<dt><img :src="obj.src1" ></dt>
+			<dl v-for="obj in list">
+				<dt><img v-bind:src="obj.src1" ></dt>
 				<dd>
 					<h4>{{obj.hh}}</h4>
 					<b>{{obj.bb}}</b><br/><span>{{obj.spans}}</span>
@@ -20,7 +20,9 @@
 	export default {
 		name:"Hglobal",
 		data(){
-			arr:[]
+			return{
+				list:true
+			}	
 		},
 		created(){
 			this.getDate()
@@ -29,9 +31,9 @@
 			getDate(){
 				let _this = this;
 				axios.get("static/json/home.json").then(function(res){
-					console.log(res.data)
-					let list = res.data;
-					_this.arr=list
+//					console.log(res.data)
+					_this.list = res.data;
+					
 				})
 			}
 		}
