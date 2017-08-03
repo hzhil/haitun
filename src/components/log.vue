@@ -6,13 +6,20 @@
 		
 		<p class="phone"><input type="text" placeholder="手机号/邮箱"/></p>
 		<p class="pass"><input type="text" placeholder="登录密码"/></p>
-		<button>登录</button>
+		<button v-bind:class="{gray:isGray,green:isGreen}">登录</button>
 		<div class="kuai"><span @click="zhu">手机快速注册</span><span>忘记密码</span></div>
+		
 	</div>
 </template>
 
 <script>
 	export default{
+		data(){
+			return{
+				isGray:true,
+				isGreen:false
+			}
+		},
 		methods:{
 			zhu(){
 				this.$router.push("/register")
@@ -29,6 +36,7 @@
 	}
 	.logtop img{
 		margin-top: 50px;
+		width: 150px;
 	}
 	.log p{
 		height: 60px;
@@ -43,6 +51,7 @@
 		outline: none;
 		border: none;
 		margin-left: 20px;
+		font-size: 16px;
 	}
 	.log>button{
 		height: 50px;
@@ -52,6 +61,8 @@
 		border-radius: 25px;
 		border: none;
 		outline: none;
+		font-size: 20px;
+		color: white;
 	}
 	.kuai{
 		margin-top: 20px;
@@ -59,5 +70,11 @@
 		margin-left: 15%;
 		display: flex;
 		justify-content: space-between;
+	}
+	.gray{
+		background: #ccc;
+	}
+	.green{
+		background: green;
 	}
 </style>

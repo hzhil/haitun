@@ -3,7 +3,7 @@
 		<p>奶粉辅食</p>
 		<div class="milk">
 			<dl @click="shop">
-				<dt><img src="http://assets.haituncun.com/media/wysiwyg/category/ymuyin/ynaiffs/ypeifnf.jpg?imageView2/0/w/140/h/140"/></dt>
+				<dt><img src="http://assets.haituncun.com/media/wysiwyg/category/ymuyin/ynaiffs/ypeifnf.jpg?imageView2/0/w/140/h/140"></dt>
 				<dd>配方奶粉</dd>
 			</dl>
 			<dl>

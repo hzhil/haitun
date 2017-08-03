@@ -17,6 +17,7 @@ import Et from '@/components/search/children/et'
 import Shoplist from '@/components/shoplist/shoplist'
 import Log from '@/components/log'
 import Register from '@/components/register'
+import Add from '@/components/add/add'
 
 Vue.use(Router)
 
@@ -105,6 +106,11 @@ export default new Router({
 	  	path:'/register',
 	  	name:'register',
 	  	component:Register
+	  },
+	  {
+	  	path:'/add',
+	  	name:'add',
+	  	component:Add
 	  }
    
   ]

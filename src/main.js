@@ -17,6 +17,8 @@ Vue.use(VueJsonp)
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
+
+// 根组件（this.$root)
 new Vue({
   el: '#app',
   router,
@@ -24,5 +26,9 @@ new Vue({
   VueJsonp,
   ElementUI,
   template: '<App/>',
+  data:{
+  	// 空的实例放到根组件下，所有的子组件都能调用
+  	bus:new Vue()
+  },
   components: { App }
 })

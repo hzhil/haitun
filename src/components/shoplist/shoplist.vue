@@ -1,19 +1,19 @@
 <template>
 	<div class="shoplist">
-		
+		<!--搜索框-->
 		<div class="sou">
 			<span @click="ht"><</span>
 			<p><input type="text" placeholder="请输入关键词"/></p>
-			<img src="static/button-category.png"/>
+			<img src="static/button-category.png" >
 		</div>
-		
+		<!--人气、销量、价格、帅选  小标题-->
 		<ul>
 			<li v-for="(obj,index) in arr" :key="index" @click="tcli(index)"  :class="{sty:count==index}">{{obj.con}}</li>
 		</ul>
-		
+		<!--商品的列表-->
 		<div class="paixu">
-			<dl v-for="obj in arr1">
-				<dt><img :src="obj.src"/></dt>
+			<dl v-for="(obj,index) in arr1">
+				<dt><img :src="obj.src" @click="add(index)"></dt>
 				<dd>
 					<p>{{obj.title}}</p>
 					<span>{{obj.price}}</span>
@@ -25,6 +25,7 @@
 </template>
 <script>
 	import axios from 'axios';
+	
 	export default{
 		data(){
 			return{
@@ -44,6 +45,13 @@
 		methods:{
 			ht(){
 				window.history.go(-1)
+			},
+			add(index){
+				this.$router.push("/add")
+				console.log(this.arr1[index])
+				let obj = this.arr1[index];
+				obj = JSON.stringify(obj);
+				localStorage.setItem("obj",obj)
 			},
 			tcli(i){
 				let _this = this;

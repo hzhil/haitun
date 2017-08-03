@@ -42,7 +42,7 @@
 		width: 250px;
 		height: 50px;
 		border-radius: 25px;
-		bottom: 10px;
+		bottom: 50px;
 		left: 30px;
 		background-color: white;
 		z-index: 10000;
