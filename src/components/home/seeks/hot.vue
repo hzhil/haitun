@@ -38,12 +38,12 @@
 		font-size: 24px;
 		border-bottom: 1px solid black;
 	}
-	ul{
+	.hot ul{
 		display: flex;
 		justify-content: space-between;
 		flex-wrap: wrap;
 	}
-	ul li{
+	.hot ul li{
 		list-style: none;
 		background: #ccc;
 		margin-top: 10px;

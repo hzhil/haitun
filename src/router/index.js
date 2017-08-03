@@ -14,6 +14,9 @@ import Gr from '@/components/search/children/gr'
 import Jj from '@/components/search/children/jj'
 import Sp from '@/components/search/children/sp'
 import Et from '@/components/search/children/et'
+import Shoplist from '@/components/shoplist/shoplist'
+import Log from '@/components/log'
+import Register from '@/components/register'
 
 Vue.use(Router)
 
@@ -80,6 +83,11 @@ export default new Router({
 		   		path:"/load",
 		   		name:"Load",
 		   		component: Load,
+		    },
+		    {
+		    	path:"/shoplist",
+		    	name:"Shoplist",
+		    	component: Shoplist
 		    }
       ]
   	},
@@ -88,6 +96,16 @@ export default new Router({
 	  	name:'Seeks',
 	  	component:Seeks
 	  },
+	  {
+	  	path:'/login',
+	  	name:'login',
+	  	component:Log
+	  },
+	  {
+	  	path:'/register',
+	  	name:'register',
+	  	component:Register
+	  }
    
   ]
 })

@@ -2,7 +2,7 @@
 	<div class="searchTab">
 		<!--<div class="left">-->
 			<ul>
-				<li v-for="(obj,index) in arr" @click="tcli(index)" :class="{sty:count==index}"><router-link :to='obj.links'>{{obj.con}}</router-link></li>
+				<li v-for="(obj,index) in arr" :key="index" @click="tcli(index)" :class="{sty:count==index}"><router-link :to='obj.links'>{{obj.con}}</router-link></li>
 			</ul>	
 		<!--</div>-->
 		<div class="right">
@@ -30,7 +30,7 @@
 		methods:{
 			tcli(i){
 				let _this = this;
-				console.log(_this.count)
+				console.log(i)
 				_this.count=i
 			}
 		}
@@ -46,15 +46,15 @@
 a{
 	text-decoration: none;
 }
-ul{
+.searchTab ul{
 	width: 30%;
 	min-width: 100px;
 	text-align: center;
 }
-ul{
+.searchTab ul{
 	list-style: none;
 }
-ul li{
+.searchTab ul li{
 	width: 100%;
 	height: 50px;
 	line-height: 50px;
@@ -62,11 +62,11 @@ ul li{
 	border-right: 1px solid gray;
 	background: #ccc;
 }
-.right{
+.searchTab .right{
 	width: 70%;
 	border: 1px solid red;
 }
-.sty{
+.searchTab .sty{
 	background: white;
 }
 </style>

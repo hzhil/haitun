@@ -10,6 +10,7 @@
 
 <script>
 	import axios from 'axios';
+	import qs from 'qs';
 	
 	export default{
 		data(){
@@ -17,19 +18,35 @@
 				arr:[],
 				name:''
 			}
-		},
+		},	
 		methods:{
 			spancli(){
 				this.$router.push("/")
 			},
 			change(name){
-				let _this = this;
-//				axios.get('https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd='+name+'&cb=JSON_CALLBACK',{dataType: 'JSONP'}).then(function(res){
+//				let _this = this;
+//			  	this.$http.jsonp('https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd='+name+'&cb=JSON_CALLBACK',{headers: {'Content-Type': 'application/x-www-form-urlencoded format'},header:("Access-Control-Allow-Origin:*"),header:("Access-Control-Allow-Methods:GET"),header:("Access-Control-Allow-Headers:x-requested-with,content-type")}).then(function(res){
+//			  		console.log(res)
+//			  	})
+			  
+			  
+//				this.$jsonp('https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd='+name+'&cb=JSON_CALLBACK', {headers: {
+//          'Content-Type': 'application/x-www-form-urlencoded format'
+//       },
+//       header:("Access-Control-Allow-Origin:*"),
+//       header:("Access-Control-Allow-Methods:GET"),
+//       header:("Access-Control-Allow-Headers:x-requested-with,content-type")}).then(function(res){
 //					console.log(res)
 //				})
+				
 //				axios({
 //					method:"get",
-//					url:"https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd="+name+"&cb=JSON_CALLBACK"	
+//					url:"https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd="+name+"&cb=JSON_CALLBACK", headers: {
+//          'Content-Type': 'application/x-www-form-urlencoded'
+//       },
+//       header:("Access-Control-Allow-Origin:*"),
+//       header:("Access-Control-Allow-Methods:GET"),
+//       header:("Access-Control-Allow-Headers:x-requested-with,content-type"),
 //				}).then((res)=>{
 //					console.log(res)
 //				})

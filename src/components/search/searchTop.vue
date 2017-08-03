@@ -1,12 +1,20 @@
 <template>
 	<div class="sTop">
-		<span><</span>
+		<span @click="ret"><</span>
 		<p><input type="text" placeholder="请输入搜索关键词"/></p>
 	</div>
 </template>
 <script>
 	export default{
-		
+//		data(){
+//			return{}
+//		},
+		methods:{
+			ret(){
+//				window.history.go(-1)
+				this.$router.back(-1)
+			}
+		}
 	}
 </script>
 
