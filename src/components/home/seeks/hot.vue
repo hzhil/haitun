@@ -30,7 +30,7 @@
 <style>
 	.hot{
 		/*border: 1px solid red;*/
-		margin:10px;
+		margin:15px;
 	}
 	.hot p{
 		height: 50px;

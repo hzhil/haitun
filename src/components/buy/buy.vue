@@ -14,10 +14,10 @@
 			<div class="rowAdd" v-for="(obj,index) in arrBuy">
 				<div class="row">
 					<input type="checkbox">
-					<img :src="obj.src"/>
+					<img :src="obj.big_image"/>
 					<div>
-						<h5>{{obj.title}}</h5>
-						<span>{{obj.price}}</span>
+						<h5>{{obj.name}}</h5>
+						<span>¥{{obj.price}}</span>
 						<p>
 							<span @click="little">-</span>
 							<span>{{counter}}</span>

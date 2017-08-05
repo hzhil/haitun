@@ -13,10 +13,10 @@
 		<!--商品的列表-->
 		<div class="paixu">
 			<dl v-for="(obj,index) in arr1">
-				<dt><img :src="obj.src" @click="add(index)"></dt>
+				<dt><img :src="obj.big_image" @click="add(index)"></dt>
 				<dd>
-					<p>{{obj.title}}</p>
-					<span>{{obj.price}}</span>
+					<p>{{obj.name}}</p>
+					<span>¥{{obj.price}}</span>
 				</dd>
 			</dl>
 		</div>
@@ -48,7 +48,7 @@
 			},
 			add(index){
 				this.$router.push("/add")
-				console.log(this.arr1[index])
+//				console.log(this.arr1[index])
 				let obj = this.arr1[index];
 				obj = JSON.stringify(obj);
 				localStorage.setItem("obj",obj)
@@ -59,11 +59,42 @@
 				_this.count=i
 			},
 			getData(){
-				axios.get("static/json/shoplist.json").then((res)=>{
-//					console.log(res.data)
-					this.arr1 = res.data
+				axios.get("static/json/1.json").then((res)=>{
+					this.arr1 = res.data.data.items
 				})
 			}
+		},
+		mounted(){
+			let _this = this;
+			let sw = true;
+			window.addEventListener("scroll",function(){
+//				document.body.scrollTop 滚动条高度,即文档滚动的高度 
+//				window.innerHeight 窗口高度
+//				document.body.offsetHeight 文档高度
+				if((document.body.scrollTop+window.innerHeight) >= (document.body.offsetHeight)){
+//					console.log(document.body.scrollTop);
+//					console.log(window.innerHeight)
+//					console.log(document.body.offsetHeight)
+//					第一次到底部的滚动条高度
+					let oneBase = 2000;
+//					最开始为0
+					let num = 1;
+//					第一次到底部
+					if(document.body.scrollTop >= (oneBase+(num-1)*2000)){
+						if(sw){
+							axios.get("static/json/"+(num+1)+".json").then((res)=>{
+//								console.log(res.data.data.items)
+								for(var i=0;i<res.data.data.items.length;i++){
+									_this.arr1.push(res.data.data.items[i]);
+								}
+								sw = true;
+								num++;
+							})	
+							sw = false;
+						}
+					}
+				}
+			})
 		}
 	}
 </script>
@@ -89,6 +120,10 @@
 		width: 90%;
 		height: 40px;
 		overflow: hidden;
+		text-overflow: ellipsis;
+		display: -webkit-box;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 2;
 		margin-bottom: 10px;
 	}
 	.paixu dl dd span{

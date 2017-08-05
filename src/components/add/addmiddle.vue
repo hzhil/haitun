@@ -7,7 +7,7 @@
 		
 		<h5>{{title}}</h5>
 		<p>{{descript}}</p>
-		<span>{{price}}</span>
+		<span>¥{{price}}</span>
 		
 		<div class="numberAdd">
 			<p>数量:&nbsp;&nbsp;&nbsp;<span @click='lose'>-</span><span>{{counter}}</span><span @click='plus'>+</span></p>
@@ -35,8 +35,8 @@
 			getObj(){
 				let objString = localStorage.getItem("obj");
 				let obj = JSON.parse(objString);
-				this.src1 = obj.src;
-				this.title = obj.title;
+				this.src1 = obj.big_image;
+				this.title = obj.name;
 				this.descript = obj.describe;
 				this.price=obj.price
 			},

@@ -1,9 +1,11 @@
 <template>
-	<div class="seek">
-		<span @click="spancli"><</span>
-		<p><input type="text" placeholder="请输入搜索关键词" v-model="name" @keyup="change(name)"/><button @click="change(name)">搜索</button></p>
-		<ul>
-			<li class="box" v-for="d in arr">{{d}}</li>
+	<div class="keySearch">
+		<div class="seek">
+			<span @click="spancli"><</span>
+			<p><input type="text" placeholder="请输入搜索关键词" v-model="name" @keyup="press"><button>搜索</button></p>
+		</div>
+		<ul class="uls" >
+			<li v-for="item in myfilter(arr)" v-show="isH" @click="changes">{{item.title}}</li>
 		</ul>
 	</div>
 </template>
@@ -15,47 +17,53 @@
 	export default{
 		data(){
 			return{
+				isH:false,
 				arr:[],
 				name:''
 			}
-		},	
+		},
+		created(){
+			let _this = this;
+			axios.get("static/json/shoplist.json").then(function(res){
+				_this.arr = res.data
+			})
+		},
 		methods:{
 			spancli(){
 				this.$router.push("/")
 			},
-			change(name){
-//				let _this = this;
-//			  	this.$http.jsonp('https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd='+name+'&cb=JSON_CALLBACK',{headers: {'Content-Type': 'application/x-www-form-urlencoded format'},header:("Access-Control-Allow-Origin:*"),header:("Access-Control-Allow-Methods:GET"),header:("Access-Control-Allow-Headers:x-requested-with,content-type")}).then(function(res){
-//			  		console.log(res)
-//			  	})
-			  
-			  
-//				this.$jsonp('https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd='+name+'&cb=JSON_CALLBACK', {headers: {
-//          'Content-Type': 'application/x-www-form-urlencoded format'
-//       },
-//       header:("Access-Control-Allow-Origin:*"),
-//       header:("Access-Control-Allow-Methods:GET"),
-//       header:("Access-Control-Allow-Headers:x-requested-with,content-type")}).then(function(res){
-//					console.log(res)
-//				})
-				
-//				axios({
-//					method:"get",
-//					url:"https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd="+name+"&cb=JSON_CALLBACK", headers: {
-//          'Content-Type': 'application/x-www-form-urlencoded'
-//       },
-//       header:("Access-Control-Allow-Origin:*"),
-//       header:("Access-Control-Allow-Methods:GET"),
-//       header:("Access-Control-Allow-Headers:x-requested-with,content-type"),
-//				}).then((res)=>{
-//					console.log(res)
-//				})
-			}
+			press(){
+				this.isH=true;
+				let keyt = document.querySelector(".seek>p input");
+				if(keyt.value==''){
+					this.isH=false
+				}
+			},
+			myfilter(arr){
+				let _this = this;
+				return arr.filter(function(obj){
+					if(obj.title.indexOf(_this.name)>-1){
+					  return obj.title
+					}
+				})
+				this.isH=true
+		   },
+		   changes(e){
+		        if(e.target){
+		           console.log(e.target.innerHTML);
+		           this.name=e.target.innerHTML;
+		        }
+		        this.isH=false;
+		      }
+
 		}
 	}
 </script>
 
 <style>
+	.keySearch{
+		position: relative;
+	}
 	.seek{
 		display: flex;
 		align-items: center;
@@ -63,7 +71,7 @@
 	}
 	.seek p{
 		height: 40px;
-		width: 320px;
+		min-width: 320px;
 		border: 1px solid black;
 		border-radius: 10px;
 		margin-left: 20px;
@@ -87,5 +95,20 @@
 		background: blue;
 		color: white;
 		font-size: 20px;
+	}
+	.uls{
+		width: 80%;
+		margin-left: 10%;
+		list-style: none;
+		position: absolute;
+		top: 50px;
+	}
+	.uls li{
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		height: 30px;
+		line-height: 30px;
+		border-bottom: 1px solid red;
 	}
 </style>
