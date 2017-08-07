@@ -36,7 +36,9 @@
 					{con:'销量'},
 					{con:'价格'},
 					{con:'筛选'},
-				]
+				],
+				i:0,
+				a:0
 			}
 		},
 		created(){
@@ -46,17 +48,41 @@
 			ht(){
 				window.history.go(-1)
 			},
+			//点击进入产品详情页面
 			add(index){
 				this.$router.push("/add")
-//				console.log(this.arr1[index])
+//				console.log(index)
 				let obj = this.arr1[index];
 				obj = JSON.stringify(obj);
-				localStorage.setItem("obj",obj)
+				localStorage.setItem("productList",obj)
 			},
 			tcli(i){
-				let _this = this;
-//				console.log(i)
-				_this.count=i
+				console.log(i)
+				this.count=i;
+				this.a++;
+				//人气排序
+				if(i == 0){
+					return this.arr1.sort(function(x,y){
+						return x.provider_id - y.provider_id
+					})
+					//销量排序
+				}else if(i==1){
+					return this.arr1.sort((x,y)=>{
+						return x.is_stock - y.is_stock
+					})
+					//价格排序
+				}else if(i==2){
+					if(this.a % 2 == 0){
+			          return this.arr1.sort(function(x,y){
+			            return x.price-y.price;
+			          });
+			        }else{
+			          return this.arr1.sort(function(x,y){
+			            return -(x.price-y.price);
+			          })
+			        }
+				}
+				
 			},
 			getData(){
 				axios.get("static/json/1.json").then((res)=>{

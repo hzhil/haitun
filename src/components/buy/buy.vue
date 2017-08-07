@@ -1,7 +1,7 @@
 <template>
 	<div class="buy">
 		
-		<div class="kong" v-if="isShow">
+		<div class="kong" v-if="!totle">
 			<div class="yuan">
 				<img src="static/button-cart.png"/>
 			</div>
@@ -11,18 +11,18 @@
 		</div>
 		<!--购物车中添加了商品，那么下面的显示，上面的隐藏-->
 		<div class="have" v-else>
-			<div class="rowAdd" v-for="(obj,index) in arrBuy">
+			<div class="rowAdd" v-for="(obj,key) in buyObj">
 				<div class="row">
-					<input type="checkbox">
-					<img :src="obj.big_image"/>
+					<input type="checkbox" :checked="isChecked">
+					<img :src="obj.img"/>
 					<div>
 						<h5>{{obj.name}}</h5>
 						<span>¥{{obj.price}}</span>
 						<p>
-							<span @click="little">-</span>
-							<span>{{counter}}</span>
-							<span @click="more">+</span>
-							<i class="el-icon-delete"></i>
+							<span @click="little(key)">-</span>
+							<span>{{obj.counter}}</span>
+							<span @click="more(key)">+</span>
+							<span @click="dele(key)"><i class="el-icon-delete"></i></span>
 						</p>
 						
 					</div>
@@ -33,49 +33,102 @@
 					<span>关税：<b>0.00</b>(由商家承担)</span>
 				</p>
 			</div>
-			<buybottom></buybottom>
 		</div>
-		
+		<!--底部的-->
+		<div class="buyBottom">
+			<div class="choose">
+				<input type="checkbox" v-model="isChecked">全选
+			</div>
+			
+			<div class="totle">
+				<p>合计<b>￥{{totle}}</b></p>
+				<span>(含运费,已优惠：￥0.00)</span>
+			</div>
+			
+			<button>去结算(<b>0</b>)</button>
+			
+		</div>
 	</div>
 </template>
 
 <script>
-	import buybottom from '@/components/buy/buyBottom';
 	
 	export default{
 		data(){
 			return{
-				arrBuy:[],
-				counter:1,
-				isShow:false
+				buyObj:{},
+				t:1,
+				totle:0,
+				isChecked:true,
+				cartObj:{}
 			}
 		},
 		created(){
-//			this.$root.bus.$on("buyShop",value=>{
-//				this.print(value)
-//			})
 			this.getData()
 		},
 		methods:{
-//			print(value){
-//				console.log(value)
-//			},
 			getData(){
-				this.arrBuy = JSON.parse(localStorage.getItem("buyShop"));
-				console.log(this.arrBuy)
+				this.buyObj = JSON.parse(localStorage.getItem("shopBuy"));
+		        //计算商品的总价格
+		        this.cartObj = this.buyObj;
+		        for(var i in this.cartObj){
+		            this.totle += this.cartObj[i]["counter"]*this.cartObj[i]["price"];
+		        }
 			},
-			little(index){
-				if(this.counter>1){
-					this.counter--
-				}else{
-					this.counter=1
-				}
+			dele(key){
+				//获取本地存储
+		        var localData = localStorage.getItem("shopBuy");
+		      	var shopDataObj = JSON.parse(localData);
+		      	delete shopDataObj[key];
+		      	
+		      	localStorage.setItem("shopBuy",JSON.stringify(shopDataObj));
+		        this.buyObj = JSON.parse(localStorage.getItem("shopBuy"));
+		      	//计算商品的总价格
+		      	this.totle = 0;
+		      	this.cartObj = this.buyObj;
+		        for(var i in this.cartObj){
+		            this.totle+= this.cartObj[i]["counter"]*this.cartObj[i]["price"];
+		        }
+		        
 			},
-			more(index){
-				this.counter++
+			little(key){			
+				//获取本地存储
+		        var localData = localStorage.getItem("shopBuy");
+		      	var shopDataObj = JSON.parse(localData);
+		        var number = shopDataObj[key]["counter"]--;
+//				console.log(number)
+				if(number<=0){
+					delete shopDataObj[key]
+				};
+				
+		        localStorage.setItem("shopBuy",JSON.stringify(shopDataObj));
+		        this.buyObj = JSON.parse(localStorage.getItem("shopBuy"));
+				//计算商品的总价格
+				this.totle = 0;
+		        for(var i in this.buyObj){
+		            this.totle += this.buyObj[i]["counter"]*this.buyObj[i]["price"];
+		        }
+		        
+			},
+			more(key){
+				//获取本地存储
+		        var localData = localStorage.getItem("shopBuy");
+		      	var shopDataObj = JSON.parse(localData);
+//		     	console.log(shopDataObj[key]["counter"]);
+		        shopDataObj[key]["counter"]++;
+		        
+		        localStorage.setItem("shopBuy",JSON.stringify(shopDataObj));
+		        this.buyObj = JSON.parse(localStorage.getItem("shopBuy"));
+				//计算商品的总价格
+				this.totle = 0;
+		        this.cartObj = this.buyObj;
+		        for(var i in this.cartObj){
+		            this.totle+= this.cartObj[i]["counter"]*this.cartObj[i]["price"];
+		        }		
+		        
+				
 			}
-		},
-		components:{buybottom}
+		}
 	}
 </script>
 
@@ -156,5 +209,28 @@
 		outline: none;
 		background: none;
 	}
-	
+	.buyBottom{
+		width: 100%;
+		height: 50px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		position: fixed;
+		bottom: 0;
+		background: greenyellow;
+	}
+	.buyBottom .choose{
+		margin-left: 15px;
+	}
+	.buyBottom .totle{
+		text-align: center;
+	}
+	.buyBottom>button{
+		height: 50px;
+		border: none;
+		min-width: 120px;
+		background: red;
+		color: white;
+		font-size: 20px;
+	}
 </style>

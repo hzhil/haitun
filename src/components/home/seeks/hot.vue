@@ -29,8 +29,8 @@
 
 <style>
 	.hot{
-		/*border: 1px solid red;*/
-		margin:15px;
+		width: 80%;
+		margin-left: 10%;
 	}
 	.hot p{
 		height: 50px;

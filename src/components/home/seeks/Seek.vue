@@ -110,5 +110,7 @@
 		height: 30px;
 		line-height: 30px;
 		border-bottom: 1px solid red;
+		background: white;
+		
 	}
 </style>

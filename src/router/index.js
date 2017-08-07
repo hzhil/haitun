@@ -1,4 +1,6 @@
+//导入vue，引入vue模块
 import Vue from 'vue'
+//导入vue-router，引入路由模块
 import Router from 'vue-router'
 
 import Tab from '@/components/Tab'
@@ -19,6 +21,7 @@ import Log from '@/components/log'
 import Register from '@/components/register'
 import Add from '@/components/add/add'
 
+//调用路由
 Vue.use(Router)
 
 export default new Router({

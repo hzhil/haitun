@@ -16,34 +16,57 @@
 				arrBuy:[],
 				numBuy:0,
 				val:1,
-				obj:{}
+				localObj:{}
 			}
 		},
 		created(){
 			this.$root.bus.$on("changeNum",value=>{
 				this.print(value)
 			}),
-			this.getObj()
+			this.$root.bus.$on("goodsDetail",value=>{
+				this.goodsDetail(value)
+			})
 		},
+//		beforeDestroy(){
+//			this.$root.bus.$off('changeNum');
+//			this.$root.bus.$off('goodsDetail');
+//		},
 		methods:{
 			print(value){
 				this.val=value
 			},
-			getObj(){
-				let objString = localStorage.getItem("obj");
-				this.obj = JSON.parse(objString);	
+			goodsDetail(value){
+//				传过来要本地存储的对象
+				this.localObj = value;
 			},
 			addBuy(){
-				this.numBuy=this.numBuy+this.val;
-				this.arrBuy.push(this.obj);
-//				console.log(this.obj.price)
-//				this.$root.bus.$emit('buyShop',this.arrBuy)
+				//点击加入购物车，保存到本地
+				//获取本地存储
+			      var locationDataStr = localStorage.getItem("shopBuy");
+			      var localtionData;
+			      //如果为空则创建一个对象;否则将它转为json对象
+			      if(!locationDataStr){
+			        localtionData = {};
+			      }else{
+			        localtionData = JSON.parse(locationDataStr);
+			      }
+				//获取存储的数据,对要存储的数据与本地进行比较
+			      var tempData = localtionData[this.localObj.id];
+			      //如果没有数据，则把它加进本地存储中
+			      if(!tempData){
+			        localtionData[this.localObj.id] = this.localObj;
+			      }else{
+			        //之前有数据，将数量+1
+			        tempData.counter += 1;
+			      }
+			      //存储到本地
+			    localStorage.setItem("shopBuy",JSON.stringify(localtionData));
 				
-				localStorage.setItem("buyShop",JSON.stringify(this.arrBuy))
 			},
 			buyCar(){
 				this.$router.push('/buy')
-			}
+			}	
+			
 		}
 	}
 </script>
