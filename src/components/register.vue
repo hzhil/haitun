@@ -151,6 +151,7 @@
 		background: blueviolet;
 		color: white;
 		border: none;
+		outline: none;
 	}
 	.register ul li input{
 		height: 46px;
