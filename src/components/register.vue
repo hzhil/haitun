@@ -16,11 +16,12 @@
 </template>
 
 <script>
+//	账号注册
 	import axios from 'axios';
 	export default{
 		data(){
 			return{
-				number:5,
+				number:3,
 				isIf:true,
 				pShow:false,
 				code:'',
@@ -57,8 +58,8 @@
 				let username = document.querySelector(".phone");
 				let password = document.querySelector(".pass");
 				let codes = document.querySelector(".codes");
-				let userReg = /^1[34578]\d{9}$/;
-				let passReg = /^[0-9a-z_]{6,18}$/i;
+				let userReg = /^1[34578]\d{0,9}$/;
+				let passReg = /^[0-9a-z_]{0,18}$/i;
 				let obj = {};
 
 				let codesBol = false;
@@ -138,7 +139,7 @@
 	}
 	.register ul li span{
 		display: inline-block;
-		width: 20%;
+		width: 18%;
 		vertical-align: middle;
 		height: 30px;
 		line-height: 30px;
@@ -148,6 +149,7 @@
 	}
 	.register ul li button{
 		height: 30px;
+		width: 18%;
 		background: blueviolet;
 		color: white;
 		border: none;

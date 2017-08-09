@@ -1,8 +1,10 @@
 <template>
+	<!--注册登录页面-->
 	<div class="buy">
 		<div class="buytop">
 			<span @click="loa"><</span>
-			<p><b @click="deng">登录</b>/<b @click="zhu">注册</b></p>
+			<p v-show="shows"><b @click="deng">登录</b>/<b @click="zhu">注册</b></p>
+			<p v-show="shows1" class="loadSuccess">{{name}}</p>
 		</div>
 		<p class="quan"><span>全部订单</span> <span>></span></p>
 		<ul class="dai">
@@ -22,12 +24,43 @@
 			<li><i class="el-icon-setting"></i><span>帮助中心</span></li>
 			<li><i class="el-icon-message"></i><span>联系我们</span></li>
 		</ul>
+		
+		<p class="tuichu" v-show="shows1" @click="loginOut">退出登录</p>
 	</div>
 </template>
 
 <script>
+	import axios from 'axios';
 	export default{
+		data(){
+			return{
+				shows:true,
+				shows1:false,
+				name:null
+			}
+		},
+		created(){
+			this.getId()
+		},
 		methods:{
+			getId(){
+				//判断是否已经登录，如果本地存储有localStorage["username"]，那么已经登录了。
+				this.name = JSON.parse(localStorage["usernames"]).user;
+				if(this.name == null){
+					this.shows = true;
+					this.shows1 = false
+				}else{
+					this.shows = false;
+					this.shows1 = true
+				}
+
+			},
+			//退出登录系统
+			loginOut(){
+				localStorage.removeItem("usernames")
+				this.shows = true;
+				this.shows1 = false;
+			},
 			loa(){
 				window.history.go(-1)
 			},
@@ -124,5 +157,9 @@
 		background: white;
 		margin-top: 60px;
 		font-size: 20px;
+	}
+	.tuichu{
+		color: red;
+		font-size: 24px;
 	}
 </style>

@@ -1,7 +1,7 @@
 <template>
 	<div class="buy">
 		
-		<div class="kong" v-if="!totle">
+		<div class="kong" v-if="!totles">
 			<div class="yuan">
 				<img src="static/button-cart.png"/>
 			</div>
@@ -41,7 +41,7 @@
 			</div>
 			
 			<div class="totle">
-				<p>合计<b>￥{{totle}}</b></p>
+				<p>合计<b>￥{{totles}}</b></p>
 				<span>(含运费,已优惠：￥0.00)</span>
 			</div>
 			
@@ -57,8 +57,8 @@
 		data(){
 			return{
 				buyObj:{},
-				t:1,
-				totle:0,
+				shopNumber:0,
+				totles:0,
 				isChecked:true,
 				cartObj:{}
 			}
@@ -72,7 +72,10 @@
 		        //计算商品的总价格
 		        this.cartObj = this.buyObj;
 		        for(var i in this.cartObj){
-		            this.totle += this.cartObj[i]["counter"]*this.cartObj[i]["price"];
+		            this.totles += this.cartObj[i]["counter"]*this.cartObj[i]["price"];
+		            if(!this.shopNumber){
+		            	this.shopNumber += this.cartObj[i]["counter"]
+		            }
 		        }
 			},
 			dele(key){
@@ -84,10 +87,10 @@
 		      	localStorage.setItem("shopBuy",JSON.stringify(shopDataObj));
 		        this.buyObj = JSON.parse(localStorage.getItem("shopBuy"));
 		      	//计算商品的总价格
-		      	this.totle = 0;
+		      	this.totles = 0;
 		      	this.cartObj = this.buyObj;
 		        for(var i in this.cartObj){
-		            this.totle+= this.cartObj[i]["counter"]*this.cartObj[i]["price"];
+		            this.totles+= this.cartObj[i]["counter"]*this.cartObj[i]["price"];
 		        }
 		        
 			},
@@ -97,16 +100,16 @@
 		      	var shopDataObj = JSON.parse(localData);
 		        var number = shopDataObj[key]["counter"]--;
 //				console.log(number)
-				if(number<=0){
+				if(number<=1){
 					delete shopDataObj[key]
 				};
 				
 		        localStorage.setItem("shopBuy",JSON.stringify(shopDataObj));
 		        this.buyObj = JSON.parse(localStorage.getItem("shopBuy"));
 				//计算商品的总价格
-				this.totle = 0;
+				this.totles = 0;
 		        for(var i in this.buyObj){
-		            this.totle += this.buyObj[i]["counter"]*this.buyObj[i]["price"];
+		            this.totles += this.buyObj[i]["counter"]*this.buyObj[i]["price"];
 		        }
 		        
 			},
@@ -120,10 +123,10 @@
 		        localStorage.setItem("shopBuy",JSON.stringify(shopDataObj));
 		        this.buyObj = JSON.parse(localStorage.getItem("shopBuy"));
 				//计算商品的总价格
-				this.totle = 0;
+				this.totles = 0;
 		        this.cartObj = this.buyObj;
 		        for(var i in this.cartObj){
-		            this.totle+= this.cartObj[i]["counter"]*this.cartObj[i]["price"];
+		            this.totles+= this.cartObj[i]["counter"]*this.cartObj[i]["price"];
 		        }		
 		        
 				

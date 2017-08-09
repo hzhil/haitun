@@ -4,7 +4,7 @@
 		<div v-bind:class="ny" class="tab">
 			<img src="static/index-button.png" v-on:click='navc'>
 		    <div class="nav" v-show='isShow'>
-		        <router-link :to='s.link' v-for="s in srcs"><img v-bind:src="s.sr" ></router-link>
+		        <router-link :to='s.link' v-for="(s,index) in srcs" ><img v-bind:src="s.sr" :key="index"></router-link>
 			</div>
 		</div>
 	</div>
@@ -27,7 +27,7 @@
 	  },
 	  methods:{
 	  	navc:function(){
-	  		console.log(this.isShow)
+//	  		console.log(this.isShow)
 				this.ny == ''?this.ny='duan':this.ny= '',
 				this.isShow==true?this.isShow=false:this.isShow=true
 	  	}

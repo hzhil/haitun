@@ -2,8 +2,8 @@
   <div class="block">
     <!--<span class="demonstration">Click 指示器触发</span>-->
     <el-carousel trigger="click" height="200px">
-      <el-carousel-item v-for="item in arr" :key="item">
-        <img :src="item.src" alt="" />
+      <el-carousel-item v-for="(item,index) in arr">
+        <img :src="item.src" :key="index" alt="" />
       </el-carousel-item>
     </el-carousel>
   </div>

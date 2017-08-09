@@ -80,7 +80,7 @@
 			getData(){
 				let _this = this;
 				axios.get("static/json/homeTui.json").then(function(res){
-					console.log(res)
+//					console.log(res)
 					_this.arr = res.data
 				})
 			}
